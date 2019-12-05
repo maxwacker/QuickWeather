@@ -2,17 +2,62 @@
 //Copyright © 2019 Max. All rights reserved.
 
 import UIKit
+import os.log
+
+extension OSLog {
+    private static var subsystem = Bundle.main.bundleIdentifier!
+
+    static let sceneCycle = OSLog(subsystem: subsystem, category: "SceneCycle")
+}
+class CityRouter: CityRouting {
+    func requestCityNextdaysScreen(for cityName: String) {
+        
+    }
+    
+}
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    let router: CityRouting = CityRouter()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        os_log("Scene Delegate will Connect", log: OSLog.sceneCycle, type: .info)
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+
+        //let window = UIWindow(windowScene: windowScene)
+        //window.frame = UIScreen.main.bounds
+        window = UIWindow(frame: UIScreen.main.bounds)
+
+        let citiesViewModel : [CityCellViewModel] = [
+            CityCellViewModel(weatherImageName: "clear_sky", cityName: "Nice"),
+            CityCellViewModel(weatherImageName: "broken_clouds", cityName: "Paris"),
+        ]
+        
+        // Instantiate root view controllers
+        let citiesTableViewController = CitiesTableViewController(viewModel: citiesViewModel, router: router)
+        let cityDetailViewController = CityNextDaysViewController()
+        
+        
+        // Embed in navigation controllers
+        let masterNavigationViewController = UINavigationController(rootViewController: citiesTableViewController)
+        let detailNavigationController = UINavigationController(rootViewController: cityDetailViewController)
+        
+        
+        // Embed in Split View controller
+        let splitViewController = UISplitViewController()
+        splitViewController.viewControllers = [masterNavigationViewController, detailNavigationController]
+        splitViewController.delegate = cityDetailViewController as? UISplitViewControllerDelegate
+        splitViewController.preferredPrimaryColumnWidthFraction = 1/3
+        splitViewController.preferredDisplayMode = .allVisible
+
+        // Root view controller of window
+        window?.rootViewController = splitViewController
+        window?.makeKeyAndVisible()
+        window?.windowScene = windowScene
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

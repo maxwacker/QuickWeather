@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		5087F877239983BD00104D51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F876239983BD00104D51 /* AppDelegate.swift */; };
 		5087F879239983BD00104D51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F878239983BD00104D51 /* SceneDelegate.swift */; };
-		5087F87B239983BD00104D51 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F87A239983BD00104D51 /* ViewController.swift */; };
-		5087F87E239983BD00104D51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5087F87C239983BD00104D51 /* Main.storyboard */; };
 		5087F880239983BE00104D51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5087F87F239983BE00104D51 /* Assets.xcassets */; };
-		5087F883239983BE00104D51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5087F881239983BE00104D51 /* LaunchScreen.storyboard */; };
 		5087F88E239983BF00104D51 /* QuickWeatherChanelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F88D239983BF00104D51 /* QuickWeatherChanelTests.swift */; };
+		5087F89E2399870800104D51 /* CitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F89C2399870800104D51 /* CitiesTableViewController.swift */; };
+		5087F8A32399974800104D51 /* CityNextDaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8A22399974800104D51 /* CityNextDaysViewController.swift */; };
+		5087F8A52399A84000104D51 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5087F8A42399A84000104D51 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,14 +30,14 @@
 		5087F873239983BD00104D51 /* QuickWeatherChanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickWeatherChanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5087F876239983BD00104D51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5087F878239983BD00104D51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5087F87A239983BD00104D51 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5087F87D239983BD00104D51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5087F87F239983BE00104D51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5087F882239983BE00104D51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5087F884239983BE00104D51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5087F889239983BF00104D51 /* QuickWeatherChanelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickWeatherChanelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5087F88D239983BF00104D51 /* QuickWeatherChanelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickWeatherChanelTests.swift; sourceTree = "<group>"; };
 		5087F88F239983BF00104D51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5087F89C2399870800104D51 /* CitiesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewController.swift; sourceTree = "<group>"; };
+		5087F8A22399974800104D51 /* CityNextDaysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityNextDaysViewController.swift; sourceTree = "<group>"; };
+		5087F8A42399A84000104D51 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +61,8 @@
 		5087F86A239983BD00104D51 = {
 			isa = PBXGroup;
 			children = (
+				5087F8A023998E3000104D51 /* CityNextDays */,
+				5087F898239985F300104D51 /* Cities */,
 				5087F875239983BD00104D51 /* QuickWeatherChanel */,
 				5087F88C239983BF00104D51 /* QuickWeatherChanelTests */,
 				5087F874239983BD00104D51 /* Products */,
@@ -81,11 +83,9 @@
 			children = (
 				5087F876239983BD00104D51 /* AppDelegate.swift */,
 				5087F878239983BD00104D51 /* SceneDelegate.swift */,
-				5087F87A239983BD00104D51 /* ViewController.swift */,
-				5087F87C239983BD00104D51 /* Main.storyboard */,
 				5087F87F239983BE00104D51 /* Assets.xcassets */,
-				5087F881239983BE00104D51 /* LaunchScreen.storyboard */,
 				5087F884239983BE00104D51 /* Info.plist */,
+				5087F8A42399A84000104D51 /* Launch Screen.storyboard */,
 			);
 			path = QuickWeatherChanel;
 			sourceTree = "<group>";
@@ -97,6 +97,54 @@
 				5087F88F239983BF00104D51 /* Info.plist */,
 			);
 			path = QuickWeatherChanelTests;
+			sourceTree = "<group>";
+		};
+		5087F898239985F300104D51 /* Cities */ = {
+			isa = PBXGroup;
+			children = (
+				5087F8992399864400104D51 /* View */,
+				5087F89A2399865D00104D51 /* Presenter */,
+				5087F89B2399867B00104D51 /* Worker */,
+			);
+			path = Cities;
+			sourceTree = "<group>";
+		};
+		5087F8992399864400104D51 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5087F89C2399870800104D51 /* CitiesTableViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5087F89A2399865D00104D51 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		5087F89B2399867B00104D51 /* Worker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Worker;
+			sourceTree = "<group>";
+		};
+		5087F8A023998E3000104D51 /* CityNextDays */ = {
+			isa = PBXGroup;
+			children = (
+				5087F8A123998E3E00104D51 /* View */,
+			);
+			path = CityNextDays;
+			sourceTree = "<group>";
+		};
+		5087F8A123998E3E00104D51 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5087F8A22399974800104D51 /* CityNextDaysViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,9 +228,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5087F883239983BE00104D51 /* LaunchScreen.storyboard in Resources */,
+				5087F8A52399A84000104D51 /* Launch Screen.storyboard in Resources */,
 				5087F880239983BE00104D51 /* Assets.xcassets in Resources */,
-				5087F87E239983BD00104D51 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,9 +247,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5087F87B239983BD00104D51 /* ViewController.swift in Sources */,
 				5087F877239983BD00104D51 /* AppDelegate.swift in Sources */,
 				5087F879239983BD00104D51 /* SceneDelegate.swift in Sources */,
+				5087F8A32399974800104D51 /* CityNextDaysViewController.swift in Sources */,
+				5087F89E2399870800104D51 /* CitiesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,25 +271,6 @@
 			targetProxy = 5087F88A239983BF00104D51 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		5087F87C239983BD00104D51 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5087F87D239983BD00104D51 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		5087F881239983BE00104D51 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5087F882239983BE00104D51 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5087F890239983BF00104D51 /* Debug */ = {
