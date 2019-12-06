@@ -11,14 +11,21 @@ struct CityCellViewModel {
 protocol CityRouting {
     func requestCityNextdaysScreen(for cityName: String)
 }
-      
+
+protocol CityInteractoring {
+    func loadCities(cityIDs:[Int], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void)
+    //func requestDetails(for city: CityModel) // Maybe just cityID
+}
+
 class CitiesTableViewController: UITableViewController {
-    let router: CityRouting
-    let viewModel: [CityCellViewModel]
+//    let router: CityRouting
+    private var viewModel = [CityCellViewModel]()
     
-    init(viewModel: [CityCellViewModel], router: CityRouting) {
-        self.viewModel = viewModel
-        self.router = router
+    let interactor: CityInteractoring
+    
+    init(interactor: CityInteractoring) {
+        //self.router = router
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -28,12 +35,34 @@ class CitiesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // FIXME: Load This from UserDefaults
+        let londonID = 2643743
+        let moscowID = 524901
+        let kievID = 703448
+        interactor.loadCities(cityIDs: [londonID, moscowID, kievID]) { [weak self] (result: Result<[CityCellViewModel], Error>) in
+            switch result {
+            case .success(let cityCellViewModels):
+                self?.viewModel = cityCellViewModels
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                
+            case .failure(let error):
+                print(error)
+                // Since we now know the type of 'error', we can easily
+                // switch on it to perform much better error handling
+                // for each possible type of error.
+                
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -53,14 +82,15 @@ class CitiesTableViewController: UITableViewController {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         let row = indexPath.row
         cell.textLabel?.text = viewModel[row].cityName
+        cell.imageView?.image = UIImage(named: viewModel[row].weatherImageName)
         cell.textLabel?.numberOfLines = 0
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = indexPath.row
-        let selectedCityName = viewModel[row].cityName
-        router.requestCityNextdaysScreen(for: selectedCityName)
+        //let row = indexPath.row
+        //let selectedCityName = viewModel[row].cityName
+        //interactor.requestCityNextdaysScreen(for: selectedCityName)
     }
      
     /*

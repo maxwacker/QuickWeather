@@ -18,6 +18,29 @@ class CityRouter: CityRouting {
     
 }
 
+struct CityInteractor: CityInteractoring {
+    func loadCities(cityIDs: [Int], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void) {
+        var cityNetworkService = CityNetworkService()
+        cityNetworkService.load(for: cityIDs) {
+            (result: Result<[CityModel], Error>) in
+                 switch result {
+                       case .success( let cityModels):
+                        let cityCellViewModels: [CityCellViewModel] = cityModels.map { (cityModel: CityModel) -> CityCellViewModel in
+                            let iconID = (cityModel.weatherItems.first?.icon ?? ._unknown_ ).rawValue
+                            return CityCellViewModel(weatherImageName: iconID, cityName: cityModel.name)
+                        }
+                        handler(.success(cityCellViewModels))
+                           break
+                       case .failure(let error):
+                        handler(.failure(error))
+                           break
+                    }
+            }
+        }
+        
+    }
+
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
@@ -30,17 +53,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         os_log("Scene Delegate will Connect", log: OSLog.sceneCycle, type: .info)
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        //let window = UIWindow(windowScene: windowScene)
-        //window.frame = UIScreen.main.bounds
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let citiesViewModel : [CityCellViewModel] = [
-            CityCellViewModel(weatherImageName: "clear_sky", cityName: "Nice"),
-            CityCellViewModel(weatherImageName: "broken_clouds", cityName: "Paris"),
-        ]
-        
+//        let citiesViewModel : [CityCellViewModel] = [
+//            CityCellViewModel(weatherImageName: "01d", cityName: "Nice"),
+//            CityCellViewModel(weatherImageName: "10d", cityName: "Paris"),
+//        ]
+        let cityInteractor = CityInteractor()
         // Instantiate root view controllers
-        let citiesTableViewController = CitiesTableViewController(viewModel: citiesViewModel, router: router)
+        let citiesTableViewController = CitiesTableViewController(interactor: cityInteractor)
         let cityDetailViewController = CityNextDaysViewController()
         
         
