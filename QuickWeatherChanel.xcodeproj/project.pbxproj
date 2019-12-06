@@ -23,6 +23,7 @@
 		5087F8B1239A926000104D51 /* CityNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8AF239A926000104D51 /* CityNetworkService.swift */; };
 		5087F8B3239AF72400104D51 /* CityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8B2239AF72400104D51 /* CityInteractor.swift */; };
 		5087F8B4239AF72400104D51 /* CityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8B2239AF72400104D51 /* CityInteractor.swift */; };
+		5087F8B5239BBDC900104D51 /* CitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F89C2399870800104D51 /* CitiesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -292,6 +293,7 @@
 				5087F8B4239AF72400104D51 /* CityInteractor.swift in Sources */,
 				5087F88E239983BF00104D51 /* WeatherInfoItemTests.swift in Sources */,
 				5087F8A9239A5A1100104D51 /* WeatherInfoItem.swift in Sources */,
+				5087F8B5239BBDC900104D51 /* CitiesTableViewController.swift in Sources */,
 				5087F8B1239A926000104D51 /* CityNetworkService.swift in Sources */,
 				5087F8AC239A884E00104D51 /* CityModel.swift in Sources */,
 			);

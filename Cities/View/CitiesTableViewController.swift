@@ -4,25 +4,23 @@
 import UIKit
 
 struct CityCellViewModel {
+    let id: Int
+    let cityName: String
     let weatherImageName: String // Images to be taken from https://openweathermap.org/weather-conditions
-    let cityName : String
 }
 
 
 protocol CityInteractoring {
-    init(cityNetService: CityNetServing)
+    init(netService: CityNetServing, router: CityRouting)
     func loadCities(cityIDs:[Int], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void)
-    //func requestDetails(for city: CityModel) // Maybe just cityID
+    func requestCityNextdaysScreen(for id: Int)
 }
 
 class CitiesTableViewController: UITableViewController {
-//    let router: CityRouting
     private var viewModel = [CityCellViewModel]()
-    
-    let interactor: CityInteractoring
+    private let interactor: CityInteractoring
     
     init(interactor: CityInteractoring) {
-        //self.router = router
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -66,12 +64,10 @@ class CitiesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return viewModel.count
     }
 
@@ -86,9 +82,9 @@ class CitiesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let row = indexPath.row
-        //let selectedCityName = viewModel[row].cityName
-        //interactor.requestCityNextdaysScreen(for: selectedCityName)
+        let row = indexPath.row
+        let selectedCityID = viewModel[row].id
+        interactor.requestCityNextdaysScreen(for: selectedCityID)
     }
      
     /*

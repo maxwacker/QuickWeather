@@ -4,7 +4,7 @@
 import Foundation
 
 protocol CityRouting {
-    func requestCityNextdaysScreen(for cityName: String)
+    func requestCityNextdaysScreen(for cityID: Int)
 }
 
 protocol CityNetServing {
@@ -12,9 +12,13 @@ protocol CityNetServing {
 }
 
 class CityInteractor: CityInteractoring {
+    
     var cityNetService: CityNetServing
-    required init(cityNetService: CityNetServing){
-        self.cityNetService = cityNetService
+    var cityRouter: CityRouting
+    
+    required init(netService: CityNetServing, router: CityRouting){
+        self.cityNetService = netService
+        self.cityRouter = router
     }
 
     func loadCities(cityIDs: [Int], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void) {
@@ -24,7 +28,7 @@ class CityInteractor: CityInteractoring {
             case .success( let cityModels):
                 let cityCellViewModels: [CityCellViewModel] = cityModels.map { (cityModel: CityModel) -> CityCellViewModel in
                     let iconID = (cityModel.weatherItems.first?.icon ?? ._unknown_ ).rawValue
-                    return CityCellViewModel(weatherImageName: iconID, cityName: cityModel.name)
+                    return CityCellViewModel(id: cityModel.id, cityName: cityModel.name, weatherImageName: iconID)
                 }
                 handler(.success(cityCellViewModels))
                 break
@@ -34,4 +38,9 @@ class CityInteractor: CityInteractoring {
             }
         }
     }
+    
+    func requestCityNextdaysScreen(for id: Int) {
+        cityRouter.requestCityNextdaysScreen(for: id)
+    }
+    
 }

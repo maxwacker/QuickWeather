@@ -12,8 +12,17 @@ extension OSLog {
 }
 
 class CityRouter: CityRouting {
-    func requestCityNextdaysScreen(for cityName: String) {
-        
+    
+    let rootViewController: UISplitViewController
+    
+    init(rootViewController: UISplitViewController){
+        self.rootViewController = rootViewController
+    }
+    
+    func requestCityNextdaysScreen(for cityID: Int) {
+        guard let detailRootNav = rootViewController.viewControllers.last as? UINavigationController else { return }
+        let newCityNextDaysViewController = CityNextDaysViewController()
+        detailRootNav.pushViewController(newCityNextDaysViewController, animated: true)
     }
     
 }
@@ -22,7 +31,6 @@ class CityRouter: CityRouting {
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-    let router: CityRouting = CityRouter()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -33,7 +41,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let cityInteractor = CityInteractor(cityNetService: CityNetworkService())
+        let splitViewController = UISplitViewController()
+        let cityInteractor = CityInteractor(netService: CityNetworkService(), router: CityRouter(rootViewController: splitViewController))
         // Instantiate root view controllers
         let citiesTableViewController = CitiesTableViewController(interactor: cityInteractor)
         let cityDetailViewController = CityNextDaysViewController()
@@ -45,7 +54,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         
         
         // Embed in Split View controller
-        let splitViewController = UISplitViewController()
         splitViewController.viewControllers = [masterNavigationViewController, detailNavigationController]
         splitViewController.preferredPrimaryColumnWidthFraction = 1/3
         splitViewController.preferredDisplayMode = .allVisible
