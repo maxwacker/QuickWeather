@@ -53,3 +53,6 @@ extension WeatherInfoItem: Decodable {
     }
 }
 
+extension WeatherInfoItem: Equatable {
+    
+}
