@@ -21,6 +21,8 @@
 		5087F8AE239A890100104D51 /* CityModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8AD239A890100104D51 /* CityModelTests.swift */; };
 		5087F8B0239A926000104D51 /* CityNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8AF239A926000104D51 /* CityNetworkService.swift */; };
 		5087F8B1239A926000104D51 /* CityNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8AF239A926000104D51 /* CityNetworkService.swift */; };
+		5087F8B3239AF72400104D51 /* CityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8B2239AF72400104D51 /* CityInteractor.swift */; };
+		5087F8B4239AF72400104D51 /* CityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8B2239AF72400104D51 /* CityInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,7 @@
 		5087F8AA239A884E00104D51 /* CityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModel.swift; sourceTree = "<group>"; };
 		5087F8AD239A890100104D51 /* CityModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityModelTests.swift; sourceTree = "<group>"; };
 		5087F8AF239A926000104D51 /* CityNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityNetworkService.swift; sourceTree = "<group>"; };
+		5087F8B2239AF72400104D51 /* CityInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				5087F8992399864400104D51 /* View */,
-				5087F89A2399865D00104D51 /* Presenter */,
+				5087F89A2399865D00104D51 /* Interactor */,
 				5087F89B2399867B00104D51 /* Worker */,
 			);
 			path = Cities;
@@ -130,11 +133,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		5087F89A2399865D00104D51 /* Presenter */ = {
+		5087F89A2399865D00104D51 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				5087F8B2239AF72400104D51 /* CityInteractor.swift */,
 			);
-			path = Presenter;
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		5087F89B2399867B00104D51 /* Worker */ = {
@@ -272,6 +276,7 @@
 				5087F877239983BD00104D51 /* AppDelegate.swift in Sources */,
 				5087F879239983BD00104D51 /* SceneDelegate.swift in Sources */,
 				5087F8AB239A884E00104D51 /* CityModel.swift in Sources */,
+				5087F8B3239AF72400104D51 /* CityInteractor.swift in Sources */,
 				5087F8A32399974800104D51 /* CityNextDaysViewController.swift in Sources */,
 				5087F8B0239A926000104D51 /* CityNetworkService.swift in Sources */,
 				5087F8A8239A585400104D51 /* WeatherInfoItem.swift in Sources */,
@@ -284,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5087F8AE239A890100104D51 /* CityModelTests.swift in Sources */,
+				5087F8B4239AF72400104D51 /* CityInteractor.swift in Sources */,
 				5087F88E239983BF00104D51 /* WeatherInfoItemTests.swift in Sources */,
 				5087F8A9239A5A1100104D51 /* WeatherInfoItem.swift in Sources */,
 				5087F8B1239A926000104D51 /* CityNetworkService.swift in Sources */,

@@ -18,28 +18,6 @@ class CityRouter: CityRouting {
     
 }
 
-struct CityInteractor: CityInteractoring {
-    func loadCities(cityIDs: [Int], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void) {
-        var cityNetworkService = CityNetworkService()
-        cityNetworkService.load(for: cityIDs) {
-            (result: Result<[CityModel], Error>) in
-                 switch result {
-                       case .success( let cityModels):
-                        let cityCellViewModels: [CityCellViewModel] = cityModels.map { (cityModel: CityModel) -> CityCellViewModel in
-                            let iconID = (cityModel.weatherItems.first?.icon ?? ._unknown_ ).rawValue
-                            return CityCellViewModel(weatherImageName: iconID, cityName: cityModel.name)
-                        }
-                        handler(.success(cityCellViewModels))
-                           break
-                       case .failure(let error):
-                        handler(.failure(error))
-                           break
-                    }
-            }
-        }
-        
-    }
-
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDelegate {
 
@@ -55,11 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-//        let citiesViewModel : [CityCellViewModel] = [
-//            CityCellViewModel(weatherImageName: "01d", cityName: "Nice"),
-//            CityCellViewModel(weatherImageName: "10d", cityName: "Paris"),
-//        ]
-        let cityInteractor = CityInteractor()
+        let cityInteractor = CityInteractor(cityNetService: CityNetworkService())
         // Instantiate root view controllers
         let citiesTableViewController = CitiesTableViewController(interactor: cityInteractor)
         let cityDetailViewController = CityNextDaysViewController()

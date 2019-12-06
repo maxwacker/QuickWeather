@@ -8,11 +8,9 @@ struct CityCellViewModel {
     let cityName : String
 }
 
-protocol CityRouting {
-    func requestCityNextdaysScreen(for cityName: String)
-}
 
 protocol CityInteractoring {
+    init(cityNetService: CityNetServing)
     func loadCities(cityIDs:[Int], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void)
     //func requestDetails(for city: CityModel) // Maybe just cityID
 }
