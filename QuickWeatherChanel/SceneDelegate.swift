@@ -8,7 +8,9 @@ extension OSLog {
     private static var subsystem = Bundle.main.bundleIdentifier!
 
     static let sceneCycle = OSLog(subsystem: subsystem, category: "SceneCycle")
+    static let splitViewCycle = OSLog(subsystem: subsystem, category: "SplitViewCycle")
 }
+
 class CityRouter: CityRouting {
     func requestCityNextdaysScreen(for cityName: String) {
         
@@ -16,7 +18,7 @@ class CityRouter: CityRouting {
     
 }
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
     let router: CityRouting = CityRouter()
@@ -50,9 +52,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Embed in Split View controller
         let splitViewController = UISplitViewController()
         splitViewController.viewControllers = [masterNavigationViewController, detailNavigationController]
-        splitViewController.delegate = cityDetailViewController as? UISplitViewControllerDelegate
         splitViewController.preferredPrimaryColumnWidthFraction = 1/3
         splitViewController.preferredDisplayMode = .allVisible
+        
+        splitViewController.delegate = self
 
         // Root view controller of window
         window?.rootViewController = splitViewController
@@ -88,6 +91,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
+        os_log("SplitView Collapsing decision", log: OSLog.splitViewCycle, type: .info)
+
+        // From Apple Master-Detail template
+//        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
+//        guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
+//        if topAsDetailController.detailItem == nil {
+//            // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+//            return true
+//        }
+//        return false
+        return true
+    }
 
 }
 
