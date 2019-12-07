@@ -11,9 +11,9 @@ struct CityCellViewModel {
 
 
 protocol CityInteractoring {
-    init(netService: CityNetServing, router: CityRouting)
-    func loadCities(cityIDs:[Int], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void)
-    func requestCityNextdaysScreen(for id: Int)
+    init(initCityIDs: [CityID], netService: CityNetServing, router: CityRouting)
+    func loadCities(handler: @escaping (Result<[CityCellViewModel], Error>) -> Void)
+    func requestCityNextdaysScreen(for cityID: CityID)
 }
 
 class CitiesTableViewController: UITableViewController {
@@ -37,12 +37,11 @@ class CitiesTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        // FIXME: Load This from UserDefaults
-        let londonID = 2643743
-        let moscowID = 524901
-        let kievID = 703448
-        interactor.loadCities(cityIDs: [londonID, moscowID, kievID]) { [weak self] (result: Result<[CityCellViewModel], Error>) in
+        self.reload()
+    }
+
+    private func reload() {
+        interactor.loadCities() { [weak self] (result: Result<[CityCellViewModel], Error>) in
             switch result {
             case .success(let cityCellViewModels):
                 self?.viewModel = cityCellViewModels
@@ -60,7 +59,8 @@ class CitiesTableViewController: UITableViewController {
             }
         }
     }
-
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

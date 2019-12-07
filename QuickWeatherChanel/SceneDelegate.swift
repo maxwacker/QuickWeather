@@ -43,7 +43,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         window = UIWindow(frame: UIScreen.main.bounds)
 
         let splitViewController = UISplitViewController()
-        let cityInteractor = CityInteractor(netService: CityNetService(), router: MainRouter(rootViewController: splitViewController))
+        
+        // FIXME: Load This from UserDefaults
+        let londonID = 2643743
+        let moscowID = 524901
+        let kievID = 703448
+
+        let cityInteractor = CityInteractor(
+            initCityIDs: [londonID, moscowID, kievID],
+            netService: CityNetService(),
+            router: MainRouter(rootViewController: splitViewController))
         // Instantiate root view controllers
         let citiesTableViewController = CitiesTableViewController(interactor: cityInteractor)
         //let cityDetailViewController = CityNextDaysViewController()

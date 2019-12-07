@@ -12,17 +12,18 @@ protocol CityNetServing {
 }
 
 class CityInteractor: CityInteractoring {
-    
+    let cityIDs: [CityID]
     var cityNetService: CityNetServing
     var cityRouter: CityRouting
     
-    required init(netService: CityNetServing, router: CityRouting){
+    required init(initCityIDs: [CityID], netService: CityNetServing, router: CityRouting){
+        self.cityIDs = initCityIDs
         self.cityNetService = netService
         self.cityRouter = router
     }
 
-    func loadCities(cityIDs: [CityID], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void) {
-        cityNetService.load(for: cityIDs) {
+    func loadCities(handler: @escaping (Result<[CityCellViewModel], Error>) -> Void) {
+        cityNetService.load(for: self.cityIDs) {
             (result: Result<[CityModel], Error>) in
             switch result {
             case .success( let cityModels):
