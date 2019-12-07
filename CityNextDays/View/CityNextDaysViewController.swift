@@ -3,7 +3,31 @@
 
 import UIKit
 
+
+struct  CityNextDaysyCellViewModel {
+    let id: Int
+    let cityName: String
+    let weatherImageName: String
+}
+
+protocol CityNextDaysInteractoring {
+    
+}
+
+
+
 class CityNextDaysViewController: UITableViewController {
+    private var viewModel = [CityNextDaysyCellViewModel]()
+    private let interactor: CityNextDaysInteractoring
+    
+    init(interactor: CityNextDaysInteractoring) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +48,7 @@ class CityNextDaysViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 32
+        return viewModel.count
     }
 
     

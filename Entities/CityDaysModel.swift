@@ -1,36 +1,44 @@
-//Created by Maxime Wacker on 06/12/2019.
+//Created by Maxime Wacker on 07/12/2019.
 //Copyright © 2019 Max. All rights reserved.
 
-typealias CityID = Int
+import Foundation
 
-struct CityModel {
-    let id: CityID
-    let name: String
+struct CityDaysModel {
+    let date: Date
     let weatherItems: [WeatherInfoItem]
 }
 
-extension CityModel: Decodable {
+extension CityDaysModel: Decodable {
     enum CodingKeys: String, CodingKey {
-        case id
-        case name
+        case date = "dt"
         case weatherItems = "weather"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(CityID.self, forKey: .id)
-        self.name = try container.decode(String.self, forKey: .name)
+        self.date = try container.decode(Date.self, forKey: .date)
         self.weatherItems = try container.decode([WeatherInfoItem].self, forKey: .weatherItems)
     }
 }
 
 // This struct just for mapping the JSON response (a key "list" at root, with an array as value)
-struct CityModelList {
-    let cities: [CityModel]
+
+struct CityDaysList {
+    let days: [CityDaysModel]
 }
 
-extension CityModelList: Decodable {
+extension CityDaysList: Decodable {
     enum CodingKeys: String, CodingKey {
-        case cities = "list"
+        case days = "list"
+    }
+}
+
+struct CityDaysWeathersList {
+    let weathers: [WeatherInfoItem]
+}
+
+extension CityDaysWeathersList: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case weathers
     }
 }

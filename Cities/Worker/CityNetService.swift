@@ -21,7 +21,7 @@ extension URLSession {
 }
 
 
-class CityNetworkService: CityNetServing {
+class CityNetService: CityNetServing {
     
     private let session = URLSession(configuration: .default)
     private var components: URLComponents = URLComponents()
@@ -38,7 +38,7 @@ class CityNetworkService: CityNetServing {
         ]
     }
     
-    func load(for citiesIDs: [Int], handler: @escaping (Result<[CityModel], Error>) -> Void)  {
+    func load(for citiesIDs: [CityID], handler: @escaping (Result<[CityModel], Error>) -> Void)  {
         let citiesIDsCommaSeparated = citiesIDs.map{String($0)}.joined(separator: ",")
         components.queryItems?.append(URLQueryItem(name: "id", value: citiesIDsCommaSeparated))
         let url = components.url

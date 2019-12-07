@@ -21,7 +21,7 @@ class CityInteractor: CityInteractoring {
         self.cityRouter = router
     }
 
-    func loadCities(cityIDs: [Int], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void) {
+    func loadCities(cityIDs: [CityID], handler: @escaping (Result<[CityCellViewModel], Error>) -> Void) {
         cityNetService.load(for: cityIDs) {
             (result: Result<[CityModel], Error>) in
             switch result {

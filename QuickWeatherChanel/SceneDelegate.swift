@@ -11,7 +11,7 @@ extension OSLog {
     static let splitViewCycle = OSLog(subsystem: subsystem, category: "SplitViewCycle")
 }
 
-class CityRouter: CityRouting {
+class MainRouter: CityRouting, CityNextDaysRouting {
     
     let rootViewController: UISplitViewController
     
@@ -21,7 +21,8 @@ class CityRouter: CityRouting {
     
     func requestCityNextdaysScreen(for cityID: Int) {
         guard let detailRootNav = rootViewController.viewControllers.last as? UINavigationController else { return }
-        let newCityNextDaysViewController = CityNextDaysViewController()
+        let cityNextDaysInteractor: CityNextDaysInteractoring = CityNextDaysInteractor(netService: CityNextDaysNetService(), router: self as CityNextDaysRouting)
+        let newCityNextDaysViewController = CityNextDaysViewController(interactor: cityNextDaysInteractor)
         detailRootNav.pushViewController(newCityNextDaysViewController, animated: true)
     }
     
@@ -42,15 +43,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         window = UIWindow(frame: UIScreen.main.bounds)
 
         let splitViewController = UISplitViewController()
-        let cityInteractor = CityInteractor(netService: CityNetworkService(), router: CityRouter(rootViewController: splitViewController))
+        let cityInteractor = CityInteractor(netService: CityNetService(), router: MainRouter(rootViewController: splitViewController))
         // Instantiate root view controllers
         let citiesTableViewController = CitiesTableViewController(interactor: cityInteractor)
-        let cityDetailViewController = CityNextDaysViewController()
+        //let cityDetailViewController = CityNextDaysViewController()
         
         
         // Embed in navigation controllers
         let masterNavigationViewController = UINavigationController(rootViewController: citiesTableViewController)
-        let detailNavigationController = UINavigationController(rootViewController: cityDetailViewController)
+        let detailNavigationController = UINavigationController()//UINavigationController(rootViewController: cityDetailViewController)
         
         
         // Embed in Split View controller
