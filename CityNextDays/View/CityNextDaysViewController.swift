@@ -9,14 +9,17 @@ struct  CityDayCellViewModel {
     let weatherImageName: String
 }
 
+
+typealias CityDayViewModel = [String: [CityDayCellViewModel]] //key: day -> value: Cells ViewModel for this day
+
 protocol CityNextDaysInteractoring {
     init(for cityID: CityID, netService: CityNextDaysNetServing, router: CityNextDaysRouting)
-    func loadCityDays(handler: @escaping (Result<[CityDayCellViewModel], Error>) -> Void)
+    func loadCityDays(handler: @escaping (Result<CityDayViewModel, Error>) -> Void)
     
 }
 
 class CityNextDaysViewController: UITableViewController {
-    private var viewModel = [CityDayCellViewModel]()
+    private var viewModel = CityDayViewModel()
     private let interactor: CityNextDaysInteractoring
     
     init(interactor: CityNextDaysInteractoring) {
@@ -39,7 +42,7 @@ class CityNextDaysViewController: UITableViewController {
     }
 
     private func reload() {
-        interactor.loadCityDays() { [weak self] (result: Result<[CityDayCellViewModel], Error>) in
+        interactor.loadCityDays() { [weak self] (result: Result<CityDayViewModel, Error>) in
             switch result {
             case .success(let cityDayCellViewModels):
                 self?.viewModel = cityDayCellViewModels
@@ -62,20 +65,36 @@ class CityNextDaysViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return viewModel.keys.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return viewModel.count
+        let sortedKeys = Array(viewModel.keys).sorted(by: <)
+        let sectionValues = viewModel[sortedKeys[section]]
+        return sectionValues?.count ?? 0
     }
 
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sortedKeys = Array(viewModel.keys).sorted(by: <)
+        let sectionValues = viewModel[sortedKeys[section]]
+//        let date = sectionValues
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "MMMM yyyy"
+//        return dateFormatter.string(from: date)
+        return sortedKeys[section]
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-         let row = indexPath.row
-        cell.textLabel?.text = viewModel[row].date
-        cell.imageView?.image = UIImage(named: viewModel[row].weatherImageName)
+        let section = indexPath.section
+        let row = indexPath.row
+        let sortedKeys = Array(viewModel.keys).sorted(by: <)
+        let keyForSection = sortedKeys[section]
+        let cellViewModel = viewModel[keyForSection]?[row]
+        cell.textLabel?.text = cellViewModel?.date
+        cell.imageView?.image = UIImage(named: cellViewModel?.weatherImageName ?? "_unknown_")
 
         return cell
     }

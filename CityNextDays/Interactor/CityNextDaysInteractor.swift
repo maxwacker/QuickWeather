@@ -35,17 +35,34 @@ class CityNextDaysInteractor: CityNextDaysInteractoring {
         dateFormatter.timeStyle = .short
     }
 
-    func loadCityDays(handler: @escaping (Result<[CityDayCellViewModel], Error>) -> Void) {
+    private func tranformToCityDayCellVM(from cityDayModel: CityDayModel) -> CityDayCellViewModel {
+        let iconID = (cityDayModel.weatherItems.first?.icon ?? ._unknown_ ).rawValue
+        let date = self.dateFormatter.string(from: cityDayModel.date)
+        return CityDayCellViewModel(date: date, weatherImageName: iconID)
+    }
+    
+    private func transformToCityDayViewModel(from models: [CityDayModel]) -> CityDayViewModel {
+        let keyDateformatter = DateFormatter()
+        keyDateformatter.dateFormat = "yyyy-MM-dd"
+        return models.reduce(CityDayViewModel()) { cityDayViewModel, cityDayModel in
+            var updatableCityDayViewModel = cityDayViewModel
+            let modelDayKey = keyDateformatter.string(from: cityDayModel.date)
+            if updatableCityDayViewModel.keys.contains(modelDayKey) {
+                updatableCityDayViewModel[modelDayKey]?.append(tranformToCityDayCellVM(from: cityDayModel))
+            } else {
+                updatableCityDayViewModel[modelDayKey] = [tranformToCityDayCellVM(from: cityDayModel)]
+            }
+            return updatableCityDayViewModel
+        }
+    }
+    
+    func loadCityDays(handler: @escaping (Result<CityDayViewModel, Error>) -> Void) {
         cityNextDaysService.load(for: self.cityID) { [weak self]
             (result: Result<[CityDayModel], Error>) in
+            guard let self = self else { return }
             switch result {
             case .success( let cityDays):
-                let cityCellViewModels: [CityDayCellViewModel] = cityDays.map { (cityDay: CityDayModel) -> CityDayCellViewModel in
-                    let iconID = (cityDay.weatherItems.first?.icon ?? ._unknown_ ).rawValue
-                    let date = self?.dateFormatter.string(from: cityDay.date) ?? "Unknown date"
-                    return CityDayCellViewModel(date: date, weatherImageName: iconID)
-                }
-                handler(.success(cityCellViewModels))
+                handler(.success(self.transformToCityDayViewModel(from: cityDays)))
                 break
             case .failure(let error):
                 handler(.failure(error))
