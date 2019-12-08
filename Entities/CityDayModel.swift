@@ -3,12 +3,12 @@
 
 import Foundation
 
-struct CityDaysModel {
+struct CityDayModel {
     let date: Date
     let weatherItems: [WeatherInfoItem]
 }
 
-extension CityDaysModel: Decodable {
+extension CityDayModel: Decodable {
     enum CodingKeys: String, CodingKey {
         case date = "dt"
         case weatherItems = "weather"
@@ -24,7 +24,7 @@ extension CityDaysModel: Decodable {
 // This struct just for mapping the JSON response (a key "list" at root, with an array as value)
 
 struct CityDaysList {
-    let days: [CityDaysModel]
+    let days: [CityDayModel]
 }
 
 extension CityDaysList: Decodable {

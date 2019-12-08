@@ -4,20 +4,19 @@
 import UIKit
 
 
-struct  CityNextDaysyCellViewModel {
-    let id: Int
-    let cityName: String
+struct  CityDayCellViewModel {
+    let date: String
     let weatherImageName: String
 }
 
 protocol CityNextDaysInteractoring {
+    init(for cityID: CityID, netService: CityNextDaysNetServing, router: CityNextDaysRouting)
+    func loadCityDays(handler: @escaping (Result<[CityDayCellViewModel], Error>) -> Void)
     
 }
 
-
-
 class CityNextDaysViewController: UITableViewController {
-    private var viewModel = [CityNextDaysyCellViewModel]()
+    private var viewModel = [CityDayCellViewModel]()
     private let interactor: CityNextDaysInteractoring
     
     init(interactor: CityNextDaysInteractoring) {
@@ -31,7 +30,7 @@ class CityNextDaysViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.reload()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -39,6 +38,26 @@ class CityNextDaysViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    private func reload() {
+        interactor.loadCityDays() { [weak self] (result: Result<[CityDayCellViewModel], Error>) in
+            switch result {
+            case .success(let cityDayCellViewModels):
+                self?.viewModel = cityDayCellViewModels
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                
+            case .failure(let error):
+                print(error)
+                // Since we now know the type of 'error', we can easily
+                // switch on it to perform much better error handling
+                // for each possible type of error.
+                
+            }
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,8 +74,8 @@ class CityNextDaysViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
          let row = indexPath.row
-         cell.textLabel?.text = "row \(row)"
-         cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.text = viewModel[row].date
+        cell.imageView?.image = UIImage(named: viewModel[row].weatherImageName)
 
         return cell
     }

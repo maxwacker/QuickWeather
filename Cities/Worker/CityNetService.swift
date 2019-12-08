@@ -50,7 +50,6 @@ class CityNetService: CityNetServing {
                     do {
                         let root: CityModelList = try decoder.decode(CityModelList.self, from: data)
                         handler(.success(root.cities))
-                        //print("\(city.weaterItems.first?.description)")
                     } catch {
                         handler(.failure(error))
                     }

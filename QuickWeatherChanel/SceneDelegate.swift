@@ -9,6 +9,8 @@ extension OSLog {
 
     static let sceneCycle = OSLog(subsystem: subsystem, category: "SceneCycle")
     static let splitViewCycle = OSLog(subsystem: subsystem, category: "SplitViewCycle")
+    static let webServiceCycle = OSLog(subsystem: subsystem, category: "WebServiceCycle")
+
 }
 
 class MainRouter: CityRouting, CityNextDaysRouting {
@@ -19,9 +21,9 @@ class MainRouter: CityRouting, CityNextDaysRouting {
         self.rootViewController = rootViewController
     }
     
-    func requestCityNextdaysScreen(for cityID: Int) {
+    func requestCityNextdaysScreen(for cityID: CityID) {
         guard let detailRootNav = rootViewController.viewControllers.last as? UINavigationController else { return }
-        let cityNextDaysInteractor: CityNextDaysInteractoring = CityNextDaysInteractor(netService: CityNextDaysNetService(), router: self as CityNextDaysRouting)
+        let cityNextDaysInteractor: CityNextDaysInteractoring = CityNextDaysInteractor(for: cityID, netService: CityNextDaysNetService(), router: self as CityNextDaysRouting)
         let newCityNextDaysViewController = CityNextDaysViewController(interactor: cityNextDaysInteractor)
         detailRootNav.pushViewController(newCityNextDaysViewController, animated: true)
     }

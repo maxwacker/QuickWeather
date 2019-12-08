@@ -26,8 +26,8 @@
 		5087F8B5239BBDC900104D51 /* CitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F89C2399870800104D51 /* CitiesTableViewController.swift */; };
 		5087F8B8239BC19900104D51 /* CityNextDaysInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8B7239BC19900104D51 /* CityNextDaysInteractor.swift */; };
 		5087F8B9239BC19900104D51 /* CityNextDaysInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8B7239BC19900104D51 /* CityNextDaysInteractor.swift */; };
-		5087F8BB239BC4A200104D51 /* CityDaysModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8BA239BC4A200104D51 /* CityDaysModel.swift */; };
-		5087F8BC239BC4A200104D51 /* CityDaysModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8BA239BC4A200104D51 /* CityDaysModel.swift */; };
+		5087F8BB239BC4A200104D51 /* CityDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8BA239BC4A200104D51 /* CityDayModel.swift */; };
+		5087F8BC239BC4A200104D51 /* CityDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8BA239BC4A200104D51 /* CityDayModel.swift */; };
 		5087F8BF239BC8D700104D51 /* CityNextDaysNetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8BE239BC8D700104D51 /* CityNextDaysNetService.swift */; };
 		5087F8C0239BC8D700104D51 /* CityNextDaysNetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8BE239BC8D700104D51 /* CityNextDaysNetService.swift */; };
 		5087F8C2239BF5E100104D51 /* CityDaysModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8C1239BF5E100104D51 /* CityDaysModelTests.swift */; };
@@ -62,7 +62,7 @@
 		5087F8AF239A926000104D51 /* CityNetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityNetService.swift; sourceTree = "<group>"; };
 		5087F8B2239AF72400104D51 /* CityInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityInteractor.swift; sourceTree = "<group>"; };
 		5087F8B7239BC19900104D51 /* CityNextDaysInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityNextDaysInteractor.swift; sourceTree = "<group>"; };
-		5087F8BA239BC4A200104D51 /* CityDaysModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDaysModel.swift; sourceTree = "<group>"; };
+		5087F8BA239BC4A200104D51 /* CityDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDayModel.swift; sourceTree = "<group>"; };
 		5087F8BE239BC8D700104D51 /* CityNextDaysNetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityNextDaysNetService.swift; sourceTree = "<group>"; };
 		5087F8C1239BF5E100104D51 /* CityDaysModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDaysModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,7 +186,7 @@
 			children = (
 				5087F8A7239A585400104D51 /* WeatherInfoItem.swift */,
 				5087F8AA239A884E00104D51 /* CityModel.swift */,
-				5087F8BA239BC4A200104D51 /* CityDaysModel.swift */,
+				5087F8BA239BC4A200104D51 /* CityDayModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -316,7 +316,7 @@
 				5087F8A8239A585400104D51 /* WeatherInfoItem.swift in Sources */,
 				5087F89E2399870800104D51 /* CitiesTableViewController.swift in Sources */,
 				5087F8B8239BC19900104D51 /* CityNextDaysInteractor.swift in Sources */,
-				5087F8BB239BC4A200104D51 /* CityDaysModel.swift in Sources */,
+				5087F8BB239BC4A200104D51 /* CityDayModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +334,7 @@
 				5087F8C2239BF5E100104D51 /* CityDaysModelTests.swift in Sources */,
 				5087F8C0239BC8D700104D51 /* CityNextDaysNetService.swift in Sources */,
 				5087F8B1239A926000104D51 /* CityNetService.swift in Sources */,
-				5087F8BC239BC4A200104D51 /* CityDaysModel.swift in Sources */,
+				5087F8BC239BC4A200104D51 /* CityDayModel.swift in Sources */,
 				5087F8AC239A884E00104D51 /* CityModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
