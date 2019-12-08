@@ -19,8 +19,8 @@ protocol CityNextDaysNetServing {
 class CityNextDaysInteractor: CityNextDaysInteractoring {
  
     let cityID: CityID
-    var cityNextDaysService: CityNextDaysNetServing
-    var cityNextDaysRouter: CityNextDaysRouting
+    let cityNextDaysService: CityNextDaysNetServing
+    let cityNextDaysRouter: CityNextDaysRouting
     
     let dateFormatter = DateFormatter()
 

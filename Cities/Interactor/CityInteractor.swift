@@ -13,8 +13,8 @@ protocol CityNetServing {
 
 class CityInteractor: CityInteractoring {
     let cityIDs: [CityID]
-    var cityNetService: CityNetServing
-    var cityRouter: CityRouting
+    let cityNetService: CityNetServing
+    let cityRouter: CityRouting
     
     required init(initCityIDs: [CityID], netService: CityNetServing, router: CityRouting){
         self.cityIDs = initCityIDs
