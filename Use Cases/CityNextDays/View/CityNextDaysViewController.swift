@@ -54,7 +54,7 @@ class CityNextDaysViewController: UITableViewController {
                     self?.tableView.reloadData()
                 }
                 
-            case .failure(let error):
+            case .failure(_):
                 os_log("Unable to get ViewModel for CityDay Use Case ",
                 log: OSLog.webServiceCycle,
                 type: .error)
@@ -82,11 +82,6 @@ class CityNextDaysViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sortedKeys = Array(viewModel.keys).sorted(by: <)
-        let sectionValues = viewModel[sortedKeys[section]]
-//        let date = sectionValues
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "MMMM yyyy"
-//        return dateFormatter.string(from: date)
         return sortedKeys[section]
     }
     

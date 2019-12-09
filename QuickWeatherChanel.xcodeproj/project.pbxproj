@@ -88,9 +88,8 @@
 		5087F86A239983BD00104D51 = {
 			isa = PBXGroup;
 			children = (
+				5087F8C6239E439E00104D51 /* Use Cases */,
 				5087F8A6239A580800104D51 /* Entities */,
-				5087F8A023998E3000104D51 /* CityNextDays */,
-				5087F898239985F300104D51 /* Cities */,
 				5087F875239983BD00104D51 /* QuickWeatherChanel */,
 				5087F88C239983BF00104D51 /* QuickWeatherChanelTests */,
 				5087F874239983BD00104D51 /* Products */,
@@ -205,6 +204,15 @@
 				5087F8BE239BC8D700104D51 /* CityNextDaysNetService.swift */,
 			);
 			path = Worker;
+			sourceTree = "<group>";
+		};
+		5087F8C6239E439E00104D51 /* Use Cases */ = {
+			isa = PBXGroup;
+			children = (
+				5087F898239985F300104D51 /* Cities */,
+				5087F8A023998E3000104D51 /* CityNextDays */,
+			);
+			path = "Use Cases";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
