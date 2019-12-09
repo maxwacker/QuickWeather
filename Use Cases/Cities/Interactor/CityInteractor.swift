@@ -5,7 +5,8 @@ import Foundation
 
 protocol CityRouting {
     func requestCityNextdaysScreen(for cityID: Int)
-    func requestCityAdd(handler: @escaping (String) -> Void)}
+    func requestCityAdd(handler: @escaping (String) -> Void)
+}
 
 protocol CityNetServing {
     func load(for citiesIDs: [CityID], handler: @escaping (Result<[CityModel], Error>) -> Void)
@@ -15,6 +16,7 @@ protocol CityNetServing {
 protocol CityStoring {
     func retrieveStoredCityIDs() -> [CityID]
     func storeCityID(id: CityID)
+    func removeCityID(id: CityID)
 }
 
 class CityInteractor: CityInteractoring {
@@ -53,7 +55,6 @@ class CityInteractor: CityInteractoring {
     
     func requestCityAdd(handler: @escaping (Result<Void, Error>) -> Void) {
         cityRouter.requestCityAdd(){ [weak self] cityName in
-            print(cityName)
             self?.cityNetService.loadCity(named: cityName) { cityResult in
                 switch cityResult {
                 case .success(let cityModel):
@@ -69,4 +70,23 @@ class CityInteractor: CityInteractoring {
         }
     }
     
+    
+    func requestCityRemove(cityID: CityID, handler: @escaping ([CityCellViewModel]) -> Void) {
+        self.cityStorage.removeCityID(id: cityID)
+        cityNetService.load(for: self.cityStorage.retrieveStoredCityIDs()) {
+            (result: Result<[CityModel], Error>) in
+            switch result {
+            case .success( let cityModels):
+                let cityCellViewModels: [CityCellViewModel] = cityModels.map { (cityModel: CityModel) -> CityCellViewModel in
+                    let iconID = (cityModel.weatherItems.first?.icon ?? ._unknown_ ).rawValue
+                    return CityCellViewModel(id: cityModel.id, cityName: cityModel.name, weatherImageName: iconID)
+                }
+                handler(cityCellViewModels)
+                break
+            case .failure(_):
+                break
+            }
+        }
+        
+    }
 }
