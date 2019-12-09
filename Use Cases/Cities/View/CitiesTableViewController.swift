@@ -10,7 +10,7 @@ struct CityCellViewModel {
 }
 
 protocol CityInteractoring {
-    init(initCityIDs: [CityID], netService: CityNetServing, storage: CityStoring, router: CityRouting)
+    init(netService: CityNetServing, storage: CityStoring, router: CityRouting)
     func loadCities(handler: @escaping (Result<[CityCellViewModel], Error>) -> Void)
     func requestCityNextdaysScreen(for cityID: CityID)
     func requestCityAdd(handler: @escaping (Result<Void, Error>) -> Void)

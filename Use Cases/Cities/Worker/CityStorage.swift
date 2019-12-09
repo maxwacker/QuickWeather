@@ -13,15 +13,15 @@ struct CityStorage : CityStoring {
         return savedCityIDs
     }
     
-    func storeCityID(id: CityID) {
+    func store(_ cityID: CityID) {
         var savedCityIDs = self.retrieveStoredCityIDs()
-        savedCityIDs.append(id)
+        savedCityIDs.append(cityID)
         defaults.set(savedCityIDs, forKey: citiesIDStorageKey)
     }
     
-    func removeCityID(id: CityID) {
+    func remove(_ cityID: CityID) {
         var savedCityIDs = self.retrieveStoredCityIDs()
-        if let removeIndex = savedCityIDs.firstIndex(of: id) {
+        if let removeIndex = savedCityIDs.firstIndex(of: cityID) {
             savedCityIDs.remove(at: removeIndex)
         }
         defaults.set(savedCityIDs, forKey: citiesIDStorageKey)

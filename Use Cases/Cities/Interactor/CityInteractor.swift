@@ -15,8 +15,8 @@ protocol CityNetServing {
 
 protocol CityStoring {
     func retrieveStoredCityIDs() -> [CityID]
-    func storeCityID(id: CityID)
-    func removeCityID(id: CityID)
+    func store( _ cityID: CityID)
+    func remove( _ cityID: CityID)
 }
 
 class CityInteractor: CityInteractoring {
@@ -25,7 +25,7 @@ class CityInteractor: CityInteractoring {
     let cityRouter: CityRouting
     let cityStorage: CityStoring
     
-    required init(initCityIDs: [CityID], netService: CityNetServing, storage: CityStoring, router: CityRouting){
+    required init(netService: CityNetServing, storage: CityStoring, router: CityRouting){
         self.cityStorage = storage
         self.cityNetService = netService
         self.cityRouter = router
@@ -58,7 +58,7 @@ class CityInteractor: CityInteractoring {
             self?.cityNetService.loadCity(named: cityName) { cityResult in
                 switch cityResult {
                 case .success(let cityModel):
-                    self?.cityStorage.storeCityID(id: cityModel.id)
+                    self?.cityStorage.store(cityModel.id)
                     handler(.success(()))
                 case .failure(let error):
                     print(error)
@@ -72,7 +72,7 @@ class CityInteractor: CityInteractoring {
     
     
     func requestCityRemove(cityID: CityID, handler: @escaping ([CityCellViewModel]) -> Void) {
-        self.cityStorage.removeCityID(id: cityID)
+        self.cityStorage.remove(cityID)
         cityNetService.load(for: self.cityStorage.retrieveStoredCityIDs()) {
             (result: Result<[CityModel], Error>) in
             switch result {

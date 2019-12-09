@@ -35,6 +35,7 @@
 		50F35D8F239E74C4008E7541 /* CityStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F35D8E239E74C4008E7541 /* CityStorage.swift */; };
 		50F35D90239E74C4008E7541 /* CityStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F35D8E239E74C4008E7541 /* CityStorage.swift */; };
 		50F35D91239E9FA2008E7541 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F878239983BD00104D51 /* SceneDelegate.swift */; };
+		50F35D93239EA21C008E7541 /* CityInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F35D92239EA21C008E7541 /* CityInteractorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		5087F8BE239BC8D700104D51 /* CityNextDaysNetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityNextDaysNetService.swift; sourceTree = "<group>"; };
 		5087F8C1239BF5E100104D51 /* CityDaysModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDaysModelTests.swift; sourceTree = "<group>"; };
 		50F35D8E239E74C4008E7541 /* CityStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityStorage.swift; sourceTree = "<group>"; };
+		50F35D92239EA21C008E7541 /* CityInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityInteractorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,10 +126,11 @@
 		5087F88C239983BF00104D51 /* QuickWeatherChanelTests */ = {
 			isa = PBXGroup;
 			children = (
-				5087F88D239983BF00104D51 /* WeatherInfoItemTests.swift */,
 				5087F88F239983BF00104D51 /* Info.plist */,
+				5087F88D239983BF00104D51 /* WeatherInfoItemTests.swift */,
 				5087F8AD239A890100104D51 /* CityModelTests.swift */,
 				5087F8C1239BF5E100104D51 /* CityDaysModelTests.swift */,
+				50F35D92239EA21C008E7541 /* CityInteractorTests.swift */,
 			);
 			path = QuickWeatherChanelTests;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				5087F88E239983BF00104D51 /* WeatherInfoItemTests.swift in Sources */,
 				5087F8B9239BC19900104D51 /* CityNextDaysInteractor.swift in Sources */,
 				5087F8A9239A5A1100104D51 /* WeatherInfoItem.swift in Sources */,
+				50F35D93239EA21C008E7541 /* CityInteractorTests.swift in Sources */,
 				5087F8B5239BBDC900104D51 /* CitiesTableViewController.swift in Sources */,
 				5087F8C2239BF5E100104D51 /* CityDaysModelTests.swift in Sources */,
 				5087F8C0239BC8D700104D51 /* CityNextDaysNetService.swift in Sources */,
