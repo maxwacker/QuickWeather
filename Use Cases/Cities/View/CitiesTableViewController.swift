@@ -9,12 +9,11 @@ struct CityCellViewModel {
     let weatherImageName: String // Images to be taken from https://openweathermap.org/weather-conditions
 }
 
-
 protocol CityInteractoring {
-    init(initCityIDs: [CityID], netService: CityNetServing, router: CityRouting)
+    init(initCityIDs: [CityID], netService: CityNetServing, storage: CityStoring, router: CityRouting)
     func loadCities(handler: @escaping (Result<[CityCellViewModel], Error>) -> Void)
     func requestCityNextdaysScreen(for cityID: CityID)
-    func requestCityAdd(handler: @escaping (Result<CityID, Error>) -> Void)
+    func requestCityAdd(handler: @escaping (Result<Void, Error>) -> Void)
 }
 
 class CitiesTableViewController: UITableViewController {
@@ -126,10 +125,10 @@ class CitiesTableViewController: UITableViewController {
     */
     
     @objc func addTapped() {
-        interactor.requestCityAdd() { cityIDResult in
-            switch cityIDResult {
-             case .success(let cityID):
-                     print(cityID)
+        interactor.requestCityAdd() { [weak self] voidResult in
+            switch voidResult {
+             case .success(_):
+                self?.reload()
              case .failure(let error):
                  print(error)
                  // Since we now know the type of 'error', we can easily

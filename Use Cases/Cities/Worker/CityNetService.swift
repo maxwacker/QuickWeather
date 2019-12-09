@@ -24,27 +24,26 @@ extension URLSession {
 
 class CityNetService: CityNetServing {
 
-    private let appid: String
     private let session = URLSession(configuration: .default)
-    private var components: URLComponents = URLComponents()
+    // FIXME : Most of this values should be read from Info.plist (App Config)
+    private let scheme = "https"
+    private let host = "api.openweathermap.org"
+    private let appid = Bundle.main.object(forInfoDictionaryKey: "OpenWeatherAPPID") as? String ?? "CAN'T FIND APPID"
     
-    
-    
-    init(appid:String = Bundle.main.object(forInfoDictionaryKey: "OpenWeatherAPPID") as? String ?? "CAN'T FIND APPID") {
-
-        self.appid = appid
-        
-        // FIXME : Most of this values should be read from Info.plist (App Config)
-        components.scheme = "https"
-        components.host = "api.openweathermap.org"
+    private func commonComponents() -> URLComponents {
+        var components = URLComponents()
+        components.scheme = scheme
+        components.host = host
         components.queryItems = [
             URLQueryItem(name: "appid", value: appid)
         ]
+        return components
     }
     
     func load(for citiesIDs: [CityID], handler: @escaping (Result<[CityModel], Error>) -> Void)  {
-        
         let citiesIDsCommaSeparated = citiesIDs.map{String($0)}.joined(separator: ",")
+
+        var components = commonComponents()
         components.path = "/data/2.5/group"
         components.queryItems?.append(URLQueryItem(name: "id", value: citiesIDsCommaSeparated))
         let url = components.url
@@ -74,6 +73,7 @@ class CityNetService: CityNetServing {
     }
     
     func loadCity(named name: String, handler: @escaping (Result<CityModel, Error>) -> Void) {
+        var components = commonComponents()
         components.path = "/data/2.5/weather"
         components.queryItems?.append(URLQueryItem(name: "q", value: name))
         let url = components.url

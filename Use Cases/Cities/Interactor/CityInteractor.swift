@@ -12,21 +12,25 @@ protocol CityNetServing {
     func loadCity(named name: String, handler: @escaping (Result<CityModel, Error>) -> Void)
 }
 
+protocol CityStoring {
+    func retrieveStoredCityIDs() -> [CityID]
+    func storeCityID(id: CityID)
+}
+
 class CityInteractor: CityInteractoring {
 
-    
-    let cityIDs: [CityID]
     let cityNetService: CityNetServing
     let cityRouter: CityRouting
+    let cityStorage: CityStoring
     
-    required init(initCityIDs: [CityID], netService: CityNetServing, router: CityRouting){
-        self.cityIDs = initCityIDs
+    required init(initCityIDs: [CityID], netService: CityNetServing, storage: CityStoring, router: CityRouting){
+        self.cityStorage = storage
         self.cityNetService = netService
         self.cityRouter = router
     }
 
     func loadCities(handler: @escaping (Result<[CityCellViewModel], Error>) -> Void) {
-        cityNetService.load(for: self.cityIDs) {
+        cityNetService.load(for: self.cityStorage.retrieveStoredCityIDs()) {
             (result: Result<[CityModel], Error>) in
             switch result {
             case .success( let cityModels):
@@ -47,13 +51,14 @@ class CityInteractor: CityInteractoring {
         cityRouter.requestCityNextdaysScreen(for: id)
     }
     
-    func requestCityAdd(handler: @escaping (Result<CityID, Error>) -> Void) {
+    func requestCityAdd(handler: @escaping (Result<Void, Error>) -> Void) {
         cityRouter.requestCityAdd(){ [weak self] cityName in
             print(cityName)
             self?.cityNetService.loadCity(named: cityName) { cityResult in
                 switch cityResult {
                 case .success(let cityModel):
-                        handler(.success(cityModel.id))
+                    self?.cityStorage.storeCityID(id: cityModel.id)
+                    handler(.success(()))
                 case .failure(let error):
                     print(error)
                     // Since we now know the type of 'error', we can easily

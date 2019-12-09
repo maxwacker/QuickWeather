@@ -68,6 +68,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         let cityInteractor = CityInteractor(
             initCityIDs: [londonID, moscowID, kievID],
             netService: CityNetService(),
+            storage: CityStorage(),
             router: MainRouter(rootViewController: splitViewController))
         // Instantiate root view controllers
         let citiesTableViewController = CitiesTableViewController(interactor: cityInteractor)

@@ -32,6 +32,8 @@
 		5087F8C0239BC8D700104D51 /* CityNextDaysNetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8BE239BC8D700104D51 /* CityNextDaysNetService.swift */; };
 		5087F8C2239BF5E100104D51 /* CityDaysModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8C1239BF5E100104D51 /* CityDaysModelTests.swift */; };
 		5087F8C3239BF6CA00104D51 /* CityNextDaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5087F8A22399974800104D51 /* CityNextDaysViewController.swift */; };
+		50F35D8F239E74C4008E7541 /* CityStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F35D8E239E74C4008E7541 /* CityStorage.swift */; };
+		50F35D90239E74C4008E7541 /* CityStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F35D8E239E74C4008E7541 /* CityStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,7 @@
 		5087F8BA239BC4A200104D51 /* CityDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDayModel.swift; sourceTree = "<group>"; };
 		5087F8BE239BC8D700104D51 /* CityNextDaysNetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityNextDaysNetService.swift; sourceTree = "<group>"; };
 		5087F8C1239BF5E100104D51 /* CityDaysModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDaysModelTests.swift; sourceTree = "<group>"; };
+		50F35D8E239E74C4008E7541 /* CityStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				5087F8AF239A926000104D51 /* CityNetService.swift */,
+				50F35D8E239E74C4008E7541 /* CityStorage.swift */,
 			);
 			path = Worker;
 			sourceTree = "<group>";
@@ -324,6 +328,7 @@
 				5087F8A8239A585400104D51 /* WeatherInfoItem.swift in Sources */,
 				5087F89E2399870800104D51 /* CitiesTableViewController.swift in Sources */,
 				5087F8B8239BC19900104D51 /* CityNextDaysInteractor.swift in Sources */,
+				50F35D8F239E74C4008E7541 /* CityStorage.swift in Sources */,
 				5087F8BB239BC4A200104D51 /* CityDayModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +349,7 @@
 				5087F8B1239A926000104D51 /* CityNetService.swift in Sources */,
 				5087F8BC239BC4A200104D51 /* CityDayModel.swift in Sources */,
 				5087F8AC239A884E00104D51 /* CityModel.swift in Sources */,
+				50F35D90239E74C4008E7541 /* CityStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
