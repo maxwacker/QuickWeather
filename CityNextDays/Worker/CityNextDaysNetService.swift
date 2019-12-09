@@ -43,6 +43,10 @@ private var components: URLComponents = URLComponents()
                     }
                        break
                    case .failure(let error):
+                    os_log("Decoding Failure for  ",
+                    log: OSLog.cityDayCaseCycle,
+                    type: .error,
+                    url?.absoluteString ?? "NotValidURL")
                     handler(.failure(error))
                        break
                 }

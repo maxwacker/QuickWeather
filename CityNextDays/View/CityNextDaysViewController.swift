@@ -2,7 +2,7 @@
 //Copyright © 2019 Max. All rights reserved.
 
 import UIKit
-
+import os
 
 struct  CityDayCellViewModel {
     let date: String
@@ -10,7 +10,10 @@ struct  CityDayCellViewModel {
 }
 
 
-typealias CityDayViewModel = [String: [CityDayCellViewModel]] //key: day -> value: Cells ViewModel for this day
+// The viewModel for CityNextDaysViewController comes from idea
+// of grouping item having same day date in same section
+// key: day (as isoString) -> value: Cells ViewModel for this day
+typealias CityDayViewModel = [String: [CityDayCellViewModel]]
 
 protocol CityNextDaysInteractoring {
     init(for cityID: CityID, netService: CityNextDaysNetServing, router: CityNextDaysRouting)
@@ -52,7 +55,9 @@ class CityNextDaysViewController: UITableViewController {
                 }
                 
             case .failure(let error):
-                print(error)
+                os_log("Unable to get ViewModel for CityDay Use Case ",
+                log: OSLog.webServiceCycle,
+                type: .error)
                 // Since we now know the type of 'error', we can easily
                 // switch on it to perform much better error handling
                 // for each possible type of error.

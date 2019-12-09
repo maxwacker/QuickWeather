@@ -10,6 +10,7 @@ extension OSLog {
     static let sceneCycle = OSLog(subsystem: subsystem, category: "SceneCycle")
     static let splitViewCycle = OSLog(subsystem: subsystem, category: "SplitViewCycle")
     static let webServiceCycle = OSLog(subsystem: subsystem, category: "WebServiceCycle")
+    static let cityDayCaseCycle = OSLog(subsystem: subsystem, category: "CityDayCaseCycle")
 
 }
 
