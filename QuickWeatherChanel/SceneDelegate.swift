@@ -110,7 +110,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
         os_log("SplitView Collapsing decision", log: OSLog.splitViewCycle, type: .info)
 
-        // From Apple Master-Detail template
+// From Apple Master-Detail template
 //        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
 //        guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
 //        if topAsDetailController.detailItem == nil {

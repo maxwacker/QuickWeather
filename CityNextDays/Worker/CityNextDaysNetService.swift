@@ -5,19 +5,20 @@ import Foundation
 import os
 
 class CityNextDaysNetService: CityNextDaysNetServing {
+    private let appid: String
+    private let session = URLSession(configuration: .default)
+    private var components: URLComponents = URLComponents()
 
-private let session = URLSession(configuration: .default)
-private var components: URLComponents = URLComponents()
-
-    init() {
+    init(appid:String = Bundle.main.object(forInfoDictionaryKey: "OpenWeatherAPPID") as? String ?? "CAN'T FIND APPID") {
+        
+        self.appid = appid
+        
         // FIXME : Most of this values should be read from Info.plist (App Config)
-        // pro.openweathermap.org/data/2.5/forecast/hourly?id=524901
-    //api.openweathermap.org/data/2.5/forecast?id=524901&appid=f9bbb84ef43f5efdd851ca475174be39
         components.scheme = "http"
         components.host = "api.openweathermap.org"
         components.path = "/data/2.5/forecast"
         components.queryItems = [
-            URLQueryItem(name: "appid", value: "f9bbb84ef43f5efdd851ca475174be39" )
+            URLQueryItem(name: "appid", value: appid)
         ]
     }
     
