@@ -23,7 +23,7 @@ extension URLSession {
 
 
 class CityNetService: CityNetServing {
-    
+
     private let appid: String
     private let session = URLSession(configuration: .default)
     private var components: URLComponents = URLComponents()
@@ -37,7 +37,6 @@ class CityNetService: CityNetServing {
         // FIXME : Most of this values should be read from Info.plist (App Config)
         components.scheme = "https"
         components.host = "api.openweathermap.org"
-        components.path = "/data/2.5/group"
         components.queryItems = [
             URLQueryItem(name: "appid", value: appid)
         ]
@@ -46,7 +45,7 @@ class CityNetService: CityNetServing {
     func load(for citiesIDs: [CityID], handler: @escaping (Result<[CityModel], Error>) -> Void)  {
         
         let citiesIDsCommaSeparated = citiesIDs.map{String($0)}.joined(separator: ",")
-        
+        components.path = "/data/2.5/group"
         components.queryItems?.append(URLQueryItem(name: "id", value: citiesIDsCommaSeparated))
         let url = components.url
         os_log("About to request URL : %{public}s",
@@ -62,6 +61,35 @@ class CityNetService: CityNetServing {
                     do {
                         let root: CityModelList = try decoder.decode(CityModelList.self, from: data)
                         handler(.success(root.cities))
+                    } catch {
+                        handler(.failure(error))
+                    }
+                       break
+                   case .failure(let error):
+                    handler(.failure(error))
+                       break
+                }
+        }
+        task.resume()
+    }
+    
+    func loadCity(named name: String, handler: @escaping (Result<CityModel, Error>) -> Void) {
+        components.path = "/data/2.5/weather"
+        components.queryItems?.append(URLQueryItem(name: "q", value: name))
+        let url = components.url
+        os_log("About to request URL : %{public}s",
+        log: OSLog.webServiceCycle,
+        type: .info,
+        url?.absoluteString ?? "NotValidURL")
+
+        let task = session.dataTask(with: url!){ (result) in
+               switch result {
+                   case .success(/*let response*/_, let data):
+
+                    let decoder = JSONDecoder()
+                    do {
+                        let root: CityModel = try decoder.decode(CityModel.self, from: data)
+                        handler(.success(root))
                     } catch {
                         handler(.failure(error))
                     }

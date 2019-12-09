@@ -14,6 +14,7 @@ protocol CityInteractoring {
     init(initCityIDs: [CityID], netService: CityNetServing, router: CityRouting)
     func loadCities(handler: @escaping (Result<[CityCellViewModel], Error>) -> Void)
     func requestCityNextdaysScreen(for cityID: CityID)
+    func requestCityAdd(handler: @escaping (Result<CityID, Error>) -> Void)
 }
 
 class CitiesTableViewController: UITableViewController {
@@ -36,7 +37,9 @@ class CitiesTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(addTapped))
+        
         self.reload()
     }
 
@@ -121,6 +124,20 @@ class CitiesTableViewController: UITableViewController {
         return true
     }
     */
-
+    
+    @objc func addTapped() {
+        interactor.requestCityAdd() { cityIDResult in
+            switch cityIDResult {
+             case .success(let cityID):
+                     print(cityID)
+             case .failure(let error):
+                 print(error)
+                 // Since we now know the type of 'error', we can easily
+                 // switch on it to perform much better error handling
+                 // for each possible type of error.
+             }
+            
+        }
+    }
     
 }

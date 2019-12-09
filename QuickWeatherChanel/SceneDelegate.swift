@@ -15,7 +15,7 @@ extension OSLog {
 }
 
 class MainRouter: CityRouting, CityNextDaysRouting {
-    
+
     let rootViewController: UISplitViewController
     
     init(rootViewController: UISplitViewController){
@@ -29,6 +29,19 @@ class MainRouter: CityRouting, CityNextDaysRouting {
         detailRootNav.pushViewController(newCityNextDaysViewController, animated: true)
     }
     
+    func requestCityAdd(handler: @escaping (String) -> Void) {
+        let alertController = UIAlertController(title: "Enter City Name", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
+            let answer = alertController.textFields?.first?.text ?? ""
+            handler(answer)
+        }
+
+        alertController.addAction(submitAction)
+
+        self.rootViewController.present(alertController, animated: true)
+    }
 }
 
 

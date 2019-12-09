@@ -5,13 +5,16 @@ import Foundation
 
 protocol CityRouting {
     func requestCityNextdaysScreen(for cityID: Int)
-}
+    func requestCityAdd(handler: @escaping (String) -> Void)}
 
 protocol CityNetServing {
-    func load(for citiesIDs: [Int], handler: @escaping (Result<[CityModel], Error>) -> Void)
+    func load(for citiesIDs: [CityID], handler: @escaping (Result<[CityModel], Error>) -> Void)
+    func loadCity(named name: String, handler: @escaping (Result<CityModel, Error>) -> Void)
 }
 
 class CityInteractor: CityInteractoring {
+
+    
     let cityIDs: [CityID]
     let cityNetService: CityNetServing
     let cityRouter: CityRouting
@@ -40,8 +43,25 @@ class CityInteractor: CityInteractoring {
         }
     }
     
-    func requestCityNextdaysScreen(for id: Int) {
+    func requestCityNextdaysScreen(for id: CityID) {
         cityRouter.requestCityNextdaysScreen(for: id)
+    }
+    
+    func requestCityAdd(handler: @escaping (Result<CityID, Error>) -> Void) {
+        cityRouter.requestCityAdd(){ [weak self] cityName in
+            print(cityName)
+            self?.cityNetService.loadCity(named: cityName) { cityResult in
+                switch cityResult {
+                case .success(let cityModel):
+                        handler(.success(cityModel.id))
+                case .failure(let error):
+                    print(error)
+                    // Since we now know the type of 'error', we can easily
+                    // switch on it to perform much better error handling
+                    // for each possible type of error.
+                }
+            }
+        }
     }
     
 }
