@@ -23,9 +23,7 @@ Dependency inversion is a fabulous idea, but it adds a bit more abstraction to b
 Abstract Factory is a Factory, it builds object for others.
 An Abstract Factory builds object but hide the real type of them behind an abstraction : returned types are protocols.
 
-Now if we put such an Abstract Factory in a dedicated module that import concrete types (to be hiden behind Factory method protocol returned types), then this Factory module is importable by the requirer. The result is that the requirer use an object without even having access to is real concrete type because it declared in a module that is not even import by the requirer. This is magical stuff 
-
-The Requirer object could
+Now if we put such an Abstract Factory in a dedicated module that import concrete types (to be hiden behind Factory method protocol returned types), then this Factory module is importable by the requirer. The result is that the requirer use an object without even having access to is real concrete type because it declared in a module that is not even import by the requirer. This is magical stuff !
 
 
 # Separation of responsibilities
