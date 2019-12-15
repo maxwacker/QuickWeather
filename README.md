@@ -14,17 +14,6 @@ All of them are defined by an abstraction protocol, so the object pointed could 
 - Easy mocking for unit testing
 - Changing the implementation details without changing the caller (So for ex: Changing a Storage Worker from UserDefault to SQLite) 
 
-# Dependency inversion
-
-Protocols are defined on the side where they are used : Object requiring a service defines what it needs from others, by a serie of protocols definitions. When one day, you'll want to separate your project in many independant swift module frameworks, you would be able to practice dependency inversion : The module implementing the service will import the module where it is declared. The import is done in counter-intuitive way : The dependency is inversed. By doing this, the modules are really cloisonated. You could even rebuild one without having to rebuild the other, as far as the protocols defining the service are unchanged. This is a really cumfortable situation : rebuilds could become really quick !
-
-Dependency inversion is a fabulous idea, but it adds a bit more abstraction to be made properly. The question is : How to transmit object implementing protocol to object requiring it, since the requirer doesn't even know the module where the concrete implementation resides ? There must be a mediator for that and it's called an Abstract Factory.
-
-Abstract Factory is a Factory, it builds object for others.
-An Abstract Factory builds object but hide the real type of them behind an abstraction : returned types are protocols.
-
-Now if we put such an Abstract Factory in a dedicated module that import concrete types (to be hiden behind Factory method protocol returned types), then this Factory module is importable by the requirer. The result is that the requirer use an object without even having access to is real concrete type because it declared in a module that is not even import by the requirer. This is magical stuff !
-
 
 # Separation of responsibilities
 
