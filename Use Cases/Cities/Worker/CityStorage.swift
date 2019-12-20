@@ -21,9 +21,10 @@ struct CityStorage : CityStoring {
     
     func remove(_ cityID: CityID) {
         var savedCityIDs = self.retrieveStoredCityIDs()
-        if let removeIndex = savedCityIDs.firstIndex(of: cityID) {
-            savedCityIDs.remove(at: removeIndex)
-        }
+        guard let removeIndex = savedCityIDs.firstIndex(of: cityID) else { return }
+
+        savedCityIDs.remove(at: removeIndex)
         defaults.set(savedCityIDs, forKey: citiesIDStorageKey)
+
     }
 }

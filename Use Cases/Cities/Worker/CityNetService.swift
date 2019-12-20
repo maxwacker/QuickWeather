@@ -41,6 +41,10 @@ class CityNetService: CityNetServing {
     }
     
     func load(for citiesIDs: [CityID], handler: @escaping (Result<[CityModel], Error>) -> Void)  {
+        guard !citiesIDs.isEmpty else {
+            handler(.success([CityModel]()))
+            return
+        }
         let citiesIDsCommaSeparated = citiesIDs.map{String($0)}.joined(separator: ",")
 
         var components = commonComponents()
